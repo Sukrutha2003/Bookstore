@@ -20,6 +20,12 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<BookstoreContext>();
     db.Database.EnsureCreated();
+
+    if (!db.Books.Any())
+    {
+        db.Books.Add(new Book { Title = "Sample Book" });
+        db.SaveChanges();
+    }
 }
 
 // Configure the HTTP request pipeline.
